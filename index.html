@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas - Margoth</title>
+  <style>
+    /* Reset y estilo general */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow: hidden; }
+    body { display: flex; justify-content: center; align-items: center; background: #000; color: #fff; }
+
+    /* Pantalla inicial */
+    #intro { position: absolute; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; z-index: 100; transition: opacity 1s; }
+    
+    /* Container principal */
+    #main { display: none; width: 100%; height: 100%; position: relative; overflow: hidden; }
+    
+    /* Texto dinámico */
+    .text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); opacity: 0; color: #fff; font-size: 2rem; text-align: center; transition: all 0.5s ease; pointer-events: none; }
+    .show { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+
+    /* Figuras animadas */
+    .figure { position: absolute; width: 30px; height: 30px; pointer-events: none; animation: fall linear forwards; }
+    @keyframes fall { 0% { transform: translateY(-50px); opacity:1; } 100% { transform: translateY(110vh); opacity:0; } }
+
+    /* Sección final */
+    #final { display: none; width: 100%; height: 100%; position: relative; background: url('https://images.unsplash.com/photo-1509592149235-1a1b4ecb76d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTI4MnwwfDF8c2VhcmNofDJ8fHJvc2VzJTIwYW1hcmlsbGllc3xlbnwwfHx8fDE2OTU2NzU4MTl8&ixlib=rb-4.0.3&q=80&w=1080') center/cover no-repeat; overflow: hidden; }
+    #finalContent { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 50px; }
+    #finalText { background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px; max-width: 500px; color: #333; font-size: 1.2rem; text-align: center; box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+    #finalText a { display: block; margin-top: 15px; color: #ffcc00; font-weight: bold; text-decoration: none; font-size: 1.1rem; }
+    #finalText a:hover { text-decoration: underline; }
+    #finalRamo { width: 250px; height: 300px; background: url('https://images.unsplash.com/photo-1562711112-25d9a6f4c7d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTI4MnwwfDF8c2VhcmNofDEwfHxmbG93ZXMlMjBhbWFyaWxsaWVzfGVufDB8fHx8MTY5NTY3NTgxOXww&ixlib=rb-4.0.3&q=80&w=1080') center/contain no-repeat; animation: float 3s ease-in-out infinite alternate; }
+    @keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla inicial -->
+  <div id="intro">Margoth, da clicks</div>
+
+  <!-- Contenedor principal -->
+  <div id="main"></div>
+
+  <!-- Sección final -->
+  <div id="final">
+    <div id="finalContent">
+      <div id="finalText">
+        Margoth, espero valores este detalle con mucho cariño y mucho amor, creo que es lo menos que puedo hacer por ti y para que veas que el no vernos no puede ser un problema porque pensaba darte unas si nos veiamos, en fin, sin obtener una recompensa jajajaja como si ese minimo detalle interesaria, paciente y eterno sin exigir algo a cambio conformandome con verte feliz.
+        <a href="https://youtu.be/RDkeRUNtFQY?list=RDRDkeRUNtFQY" target="_blank">Escucha la canción 🎵</a>
+      </div>
+      <div id="finalRamo"></div>
+    </div>
+  </div>
+
+  <script>
+    // Textos 1 al 21
+    const textos = [
+      "Chimuelitaaaa para que veas que mi titulo no fue gratis",
+      "El dia de hoy te mando tus rositas amarillas sisisi",
+      "de esta manera porque no puedo verte",
+      "si fuera de otra manera yo te las daria personalmente",
+      "un detalle simple pero que si me costo jaja",
+      "estas rositas no se mueren",
+      "y siempre que quieras verlas",
+      "brillaran para ti",
+      "y solo para ti",
+      "brillan como tu sonrisa deslumbrante",
+      "y tu gran carisma",
+      "nada menos podria darte",
+      "cada que no te encuentres",
+      "y sientas que no puedas mas",
+      "este detalle espero pueda servir",
+      "y te saque una pequeña sonrisa",
+      "en la cual veamos las ventanas que te dejo las muelas",
+      "solo puedo velar por ti",
+      "es mi deber yy",
+      "pienso cumplirlo",
+      "Margaritaa..."
+    ];
+
+    const fondos = [
+      "linear-gradient(to bottom, #fff9c4, #fff59d)",
+      "linear-gradient(to bottom, #fffde7, #fff176)",
+      "linear-gradient(to bottom, #fff8e1, #ffe082)",
+      "linear-gradient(to bottom, #fff3e0, #ffcc80)",
+      "linear-gradient(to bottom, #fff9c4, #fff59d)"
+    ];
+
+    const main = document.getElementById("main");
+    let index = 0;
+
+    function showText() {
+      if(index >= textos.length){
+        document.getElementById("main").style.display = "none";
+        document.getElementById("final").style.display = "block";
+        return;
+      }
+      main.style.background = fondos[index % fondos.length];
+      const t = document.createElement("div");
+      t.className = "text";
+      t.innerText = textos[index];
+      main.appendChild(t);
+      setTimeout(() => { t.classList.add("show"); }, 50);
+      if(main.firstChild && main.children.length > 1){
+        const prev = main.children[0];
+        prev.classList.remove("show");
+        setTimeout(()=>{ prev.remove(); },500);
+      }
+      // Agregar figuras
+      for(let i=0;i<5;i++){
+        const f = document.createElement("div");
+        f.className = "figure";
+        f.style.left = Math.random()*100 + "vw";
+        f.style.backgroundImage = "url('https://images.unsplash.com/photo-1580087210145-1e5ecf1a6f3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTI4MnwwfDF8c2VhcmNofDV8fGZsb3dlcnxlbnwwfHx8fDE2OTU2NzU4MTl8&ixlib=rb-4.0.3&q=80&w=50')";
+        f.style.backgroundSize = "contain";
+        f.style.backgroundRepeat = "no-repeat";
+        f.style.width = "30px";
+        f.style.height = "30px";
+        f.style.animationDuration = (Math.random()*2 + 3) + "s";
+        main.appendChild(f);
+        setTimeout(()=>{ f.remove(); },4000);
+      }
+      index++;
+    }
+
+    // Eventos
+    document.addEventListener("keydown", showText);
+    document.addEventListener("click", showText);
+
+    // Pantalla inicial
+    const intro = document.getElementById("intro");
+    intro.addEventListener("click", ()=>{
+      intro.style.opacity = 0;
+      setTimeout(()=>{ intro.style.display="none"; main.style.display="block"; },1000);
+    });
+  </script>
+
+</body>
+</html>
