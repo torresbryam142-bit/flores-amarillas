@@ -11,7 +11,9 @@
       height: 100%;
       overflow: hidden;
       font-family: 'Georgia', serif;
+      background: #f0f0f0; /* Fondo general suave */
     }
+
     .start-screen, .main, .final {
       position: absolute;
       top: 0; left: 0;
@@ -20,20 +22,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: black;
-      color: white;
       font-size: 2em;
+      transition: background 0.5s ease;
     }
+
     .hidden {
       display: none;
     }
+
     .text-display {
       font-size: 2em;
       color: black; /* Texto negro */
       text-align: center;
-      padding: 20px;
-      max-width: 80%;
+      padding: 40px;
+      max-width: 70%;
+      border-radius: 15px;
+      background-color: #fff8dc; /* Fondo suave para cada texto */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+
     /* Corazones fijos */
     .corner {
       position: absolute;
@@ -52,7 +59,7 @@
       animation: fall linear infinite;
     }
     @keyframes fall {
-      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+      to { transform: translateY(1080px) rotate(360deg); opacity: 0; }
     }
 
     /* Carta final */
@@ -79,6 +86,8 @@
       font-weight: bold;
       text-decoration: none;
     }
+
+    /* Ramo de flores */
     .bouquet {
       width: 250px;
       height: 400px;
@@ -144,7 +153,7 @@
     <div class="corner bl">💛</div>
     <div class="corner br">💛</div>
     <div class="letter">
-      Margoth, espero valores este detalle con mucho cariño y mucho amor, creo que es lo menos que puedo hacer por ti y para que veas que el no vernos no puede ser un problema porque pensaba darte unas si nos veiamos, en fin, sin obtener una recompensa jajajaja como si ese minimo detalle interesaria, paciente y eterno sin exigir algo a cambio conformandome con verte feliz.
+      Margoth, espero valores este detalle con mucho cariño y mucho amor, creo que es lo menos que puedo hacer por ti y para que veas que el no vernos no puede ser un problema...
       <a href="https://youtu.be/RDkeRUNtFQY?list=RDRDkeRUNtFQY" target="_blank">🎵 Escuchar canción</a>
     </div>
     <div class="bouquet">
@@ -201,6 +210,9 @@
       if (main.classList.contains('hidden')) return;
       if (index < messages.length) {
         text.textContent = messages[index];
+        // Cambiar fondo suave aleatorio
+        const colors = ['#fff8dc','#e6f7ff','#ffe6f0','#f0fff0','#fff0e6'];
+        text.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
         index++;
       } else {
         main.classList.add('hidden');
@@ -213,13 +225,14 @@
       const el = document.createElement('div');
       el.classList.add('falling');
       el.textContent = Math.random() > 0.5 ? '🌻' : '🍃';
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.animationDuration = (5 + Math.random() * 5) + 's';
+      el.style.left = Math.random() * window.innerWidth + 'px';
+      const duration = 5 + Math.random() * 5;
+      el.style.animationDuration = duration + 's';
       el.style.fontSize = (20 + Math.random() * 20) + 'px';
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 10000);
+      setTimeout(() => el.remove(), duration*1000);
     }
-    setInterval(createFalling, 1000);
+    setInterval(createFalling, 500);
   </script>
 </body>
 </html>
